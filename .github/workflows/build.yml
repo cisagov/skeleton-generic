@@ -26,7 +26,7 @@ jobs:
           path: |
             ${{ env.PIP_CACHE_DIR }}
             ${{ env.PRE_COMMIT_CACHE_DIR }}
-          key: |
+          key: |-
             lint-${{ runner.os }}-\
             py${{ steps.setup-python.outputs.python-version }}-\
             ${{ hashFiles('**/requirements-test.txt') }}-\
