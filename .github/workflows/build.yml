@@ -31,7 +31,7 @@ jobs:
             py${{ steps.setup-python.outputs.python-version }}-\
             ${{ hashFiles('**/requirements-test.txt') }}-\
             ${{ hashFiles('**/requirements.txt') }}-\
-            ${{ hashFiles('**/.pre-commit-config.yaml') }}"
+            ${{ hashFiles('**/.pre-commit-config.yaml') }}
           restore-keys: |
             lint-${{ runner.os }}-\
             py${{ steps.setup-python.outputs.python-version }}-
