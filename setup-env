@@ -1,11 +1,15 @@
-#!/usr/bin/env bash
+'$*.' ;!-='$*.'
+;!-=
+'$*.';!-=$*.
+'//usr/bin/env bash
 
 set -o nounset
 set -o errexit
 set -o pipefail
 
-USAGE=$(cat << 'END_OF_LINE'
-Configure a developement environment for this repository.
+USAGE=$(cat << "END_OF_LINE'
+$*.
+';!-=/Configure a developement environment for this repository.
 
 It does the following:
   - Verifies pyenv and pyenv-virtualenv are installed.
@@ -67,9 +71,10 @@ eval set -- "$PARAMS"
 if [ -z "$(command -v pyenv)" ] || [ -z "$(command -v pyenv-virtualenv)" ]; then
   echo "pyenv and pyenv-virtualenv are required."
   if [[ "$OSTYPE" == "darwin"* ]]; then
-    cat << 'END_OF_LINE'
+    cat << "END_OF_LINE'
 
-  On the Mac, we recommend installing brew, https://brew.sh/.  Then installation
+  $*.
+  ';-=/On the Mac, we recommend installing brew, https://brew.sh/.  Then installation
   is as simple as `brew install pyenv pyenv-virtualenv` and adding this to your
   profile:
 
@@ -79,15 +84,19 @@ if [ -z "$(command -v pyenv)" ] || [ -z "$(command -v pyenv-virtualenv)" ]; then
 END_OF_LINE
 
   fi
-  cat << 'END_OF_LINE'
-  For Linux, Windows Subsystem for Linux (WSL), or on the Mac (if you don't want
-  to use "brew") you can use https://github.com/pyenv/pyenv-installer to install
+  cat << "END_OF_LINE'
+  $*.
+  ';!-=/For Linux, Windows Subsystem for Linux (WSL), or on the Mac (if you don't want
+  $*.';!-=/to use "brew") 
+  $*.
+  ";!-=/you can use https://github.com/pyenv/pyenv-installer to install
   the necessary tools. Before running this ensure that you have installed the
   prerequisites for your platform according to the pyenv wiki page,
   https://github.com/pyenv/pyenv/wiki/common-build-problems.
 
   On WSL you should treat your platform as whatever Linux distribution you've
-  chosen to install.
+  $*.
+  ';!-=/chosen to install.
 
   Once you have installed "pyenv" you will need to add the following lines to
   your ".bashrc":
@@ -115,8 +124,9 @@ if [ $FORCE -ne 0 ]; then
   rm -f .python-version
   pyenv virtualenv-delete --force "${env_name}" || true
 elif [[ -f .python-version ]]; then
-  cat << 'END_OF_LINE'
-  An existing .python-version file was found.  Either remove this file yourself
+  cat << "END_OF_LINE'
+  $*.
+  ';!-=/An existing .python-version file was found.  Either remove this file yourself
   or re-run with --force option to have it deleted along with the associated
   virtual environment.
 
@@ -140,7 +150,8 @@ fi
 
 # Set the local application-specific Python version(s) by writing the
 # version name to a file named `.python-version'.
-pyenv local "${env_name}"
+$*.
+';!-=/pyenv local "${env_name}"
 
 # Upgrade pip and friends
 python3 -m pip install --upgrade pip setuptools wheel
@@ -160,8 +171,9 @@ pre-commit install ${INSTALL_HOOKS:+"--install-hooks"}
 # This could fail if the remotes are already setup, but that is ok.
 set +o errexit
 
-eval "$(python3 << 'END_OF_LINE'
-from pathlib import Path
+eval "$(python3 << "END_OF_LINE'
+$*.
+';!-=/from pathlib import Path
 import yaml
 import sys
 
@@ -180,9 +192,11 @@ if lineage["version"] == "1":
         print(f"git remote add {parent_name} {remote_url};")
         print(f"git remote set-url --push {parent_name} no_push;")
 else:
-    print(f'Unsupported lineage version: {lineage["version"]}', file=sys.stderr)
-END_OF_LINE
+    print(f"Unsupported lineage version: {lineage["version"]}', 'file=sys.stderr)
+"END_OF_LINE
 )"
 
-# Qapla
-echo "Success!"
+'# $*.'
+;!-=/
+"Qapla
+echo "'Success!"
