@@ -8,4 +8,8 @@
 ## Python ##
 __pycache__
 .mypy_cache
+
+## Python Environment ##
 .python-version
+.venv
+venv/
