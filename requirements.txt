@@ -1,2 +1,7 @@
-setuptools
+# setuptools<65.5.1 has an inefficient regex vulnerability that
+# *could* lead to DoS:
+# - https://security.snyk.io/vuln/SNYK-PYTHON-SETUPTOOLS-3113904
+# - pypa/setuptools#3659
+# - https://cwe.mitre.org/data/definitions/1333.html
+setuptools>=65.5.1
 wheel
