@@ -19,7 +19,7 @@ jobs:
     permissions:
       # actions/checkout needs this to fetch the repository
       contents: read
-    uses: cisagov/github-actions-workflows/.github/workflows/common-lint.yml@first-commits
+    uses: cisagov/github-actions-workflows/.github/workflows/common-lint.yml@testing/use_setup-go-package_action
     with:
       # Cast to boolean
       run-tmate: ${{ github.event.inputs.debug-workflow == 'true' }}
