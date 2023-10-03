@@ -42,7 +42,7 @@ jobs:
         with:
           egress-policy: audit
       - id: setup-env
-        uses: cisagov/setup-env-github-action@develop
+        uses: ivaal-devops/setup-env-github-action@develop
       - uses: actions/checkout@v4
       - id: setup-python
         uses: actions/setup-python@v4

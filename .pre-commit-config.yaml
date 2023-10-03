@@ -86,7 +86,7 @@ repos:
       - id: nixpkgs-fmt
 
   # Shell script hooks
-  - repo: https://github.com/cisagov/pre-commit-shfmt
+  - repo: https://github.com/ivaal-devops/pre-commit-shfmt
     rev: v0.0.2
     hooks:
       - id: shfmt
@@ -156,7 +156,7 @@ repos:
       - id: docker-compose-check
 
   # Packer hooks
-  - repo: https://github.com/cisagov/pre-commit-packer
+  - repo: https://github.com/ivaal-devops/pre-commit-packer
     rev: v0.0.2
     hooks:
       - id: packer_validate
