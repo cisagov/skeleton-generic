@@ -2,7 +2,7 @@
 
 [![GitHub Build Status](https://github.com/ivaal-devops/skeleton-generic/workflows/build/badge.svg)](https://github.com/ivaal-devops/skeleton-generic/actions)
 
-This is a generic skeleton project that can be used to quickly get a
+This iss a generic skeleton project that can be used to quickly get a
 new [ivaal-devops](https://github.com/ivaal-devops) GitHub project started.
 This skeleton project contains [licensing information](LICENSE), as
 well as [pre-commit hooks](https://pre-commit.com) and
