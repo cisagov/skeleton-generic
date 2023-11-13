@@ -42,7 +42,7 @@ jobs:
         with:
           egress-policy: audit
       - id: setup-env
-        uses: cisagov/setup-env-github-action@improvement/add_python_and_go_versions
+        uses: cisagov/setup-env-github-action@testing/mcdonnnj
       - uses: actions/checkout@v4
       - id: setup-python
         uses: actions/setup-python@v4
