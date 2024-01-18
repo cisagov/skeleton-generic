@@ -60,6 +60,20 @@ repos:
     hooks:
       - id: validate_manifest
 
+  # Security hooks
+  - repo: https://github.com/pypa/pip-audit
+    rev: v2.7.0
+    hooks:
+      - id: pip-audit
+        args:
+          # Add any pip requirements files to scan
+          - --requirement
+          - requirements-dev.txt
+          - --requirement
+          - requirements-test.txt
+          - --requirement
+          - requirements.txt
+
   # Go hooks
   - repo: https://github.com/TekWizely/pre-commit-golang
     rev: v1.0.0-rc.1
