@@ -31,9 +31,19 @@ jobs:
       - id: dump-context
         name: Dump context
         uses: crazy-max/ghaction-dump-context@v2
+  prepare:
+    needs:
+      - diagnostics
+    runs-on: ubuntu-latest
+    outputs:
+      versions: ${{ toJSON(steps.setup-env.outputs) }}
+    steps:
+      - id: setup-env
+        uses: cisagov/setup-env-github-action@develop
   lint:
     needs:
       - diagnostics
+      - prepare
     runs-on: ubuntu-latest
     steps:
       - id: harden-runner
@@ -41,13 +51,13 @@ jobs:
         uses: step-security/harden-runner@v2
         with:
           egress-policy: audit
-      - id: setup-env
-        uses: cisagov/setup-env-github-action@develop
+      # - id: setup-env
+      #   uses: cisagov/setup-env-github-action@develop
       - uses: actions/checkout@v4
       - id: setup-python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ steps.setup-env.outputs.python-version }}
+          python-version: ${{ needs.prepare.outputs.versions.python-version }}
       # We need the Go version and Go cache location for the actions/cache step,
       # so the Go installation must happen before that.
       - id: setup-go
@@ -56,7 +66,7 @@ jobs:
           # There is no expectation for actual Go code so we disable caching as
           # it relies on the existence of a go.sum file.
           cache: false
-          go-version: ${{ steps.setup-env.outputs.go-version }}
+          go-version: ${{ needs.prepare.outputs.versions.go-version }}
       - name: Lookup Go cache directory
         id: go-cache
         run: |
@@ -66,8 +76,8 @@ jobs:
           BASE_CACHE_KEY: "${{ github.job }}-${{ runner.os }}-\
             py${{ steps.setup-python.outputs.python-version }}-\
             go${{ steps.setup-go.outputs.go-version }}-\
-            packer${{ steps.setup-env.outputs.packer-version }}-\
-            tf${{ steps.setup-env.outputs.terraform-version }}-"
+            packer${{ needs.prepare.outputs.versions.packer-version }}-\
+            tf${{ needs.prepare.outputs.versions.terraform-version }}-"
         with:
           # Note that the .terraform directory IS NOT included in the
           # cache because if we were caching, then we would need to use
@@ -90,7 +100,7 @@ jobs:
         run: mkdir -p ${{ env.CURL_CACHE_DIR }}
       - name: Install Packer
         env:
-          PACKER_VERSION: ${{ steps.setup-env.outputs.packer-version }}
+          PACKER_VERSION: ${{ needs.prepare.outputs.versions.packer-version }}
         run: |
           PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
           curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
@@ -103,31 +113,31 @@ jobs:
           sudo ln -s /opt/packer/packer /usr/local/bin/packer
       - uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: ${{ steps.setup-env.outputs.terraform-version }}
+          terraform_version: ${{ needs.prepare.outputs.versions.terraform-version }}
       - name: Install go-critic
         env:
           PACKAGE_URL: github.com/go-critic/go-critic/cmd/gocritic
-          PACKAGE_VERSION: ${{ steps.setup-env.outputs.go-critic-version }}
+          PACKAGE_VERSION: ${{ needs.prepare.outputs.versions.go-critic-version }}
         run: go install ${PACKAGE_URL}@${PACKAGE_VERSION}
       - name: Install gosec
         env:
           PACKAGE_URL: github.com/securego/gosec/v2/cmd/gosec
-          PACKAGE_VERSION: ${{ steps.setup-env.outputs.gosec-version }}
+          PACKAGE_VERSION: ${{ needs.prepare.outputs.versions.gosec-version }}
         run: go install ${PACKAGE_URL}@${PACKAGE_VERSION}
       - name: Install shfmt
         env:
           PACKAGE_URL: mvdan.cc/sh/v3/cmd/shfmt
-          PACKAGE_VERSION: ${{ steps.setup-env.outputs.shfmt-version }}
+          PACKAGE_VERSION: ${{ needs.prepare.outputs.versions.shfmt-version }}
         run: go install ${PACKAGE_URL}@${PACKAGE_VERSION}
       - name: Install staticcheck
         env:
           PACKAGE_URL: honnef.co/go/tools/cmd/staticcheck
-          PACKAGE_VERSION: ${{ steps.setup-env.outputs.staticcheck-version }}
+          PACKAGE_VERSION: ${{ needs.prepare.outputs.versions.staticcheck-version }}
         run: go install ${PACKAGE_URL}@${PACKAGE_VERSION}
       - name: Install Terraform-docs
         env:
           PACKAGE_URL: github.com/terraform-docs/terraform-docs
-          PACKAGE_VERSION: ${{ steps.setup-env.outputs.terraform-docs-version }}
+          PACKAGE_VERSION: ${{ needs.prepare.outputs.versions.terraform-docs-version }}
         run: go install ${PACKAGE_URL}@${PACKAGE_VERSION}
       - name: Install dependencies
         run: |
