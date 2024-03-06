@@ -101,6 +101,7 @@ jobs:
             ${{ steps.go-cache.outputs.dir }}
           restore-keys: |
             ${{ env.BASE_CACHE_KEY }}
+          save-always: true
       - name: Setup curl cache
         run: mkdir -p ${{ env.CURL_CACHE_DIR }}
       - name: Install Packer
