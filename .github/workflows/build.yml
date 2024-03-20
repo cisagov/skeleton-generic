@@ -5,6 +5,7 @@ on:
   merge_group:
     types:
       - checks_requested
+  pull_request:
   push:
   repository_dispatch:
     types:
@@ -31,6 +32,9 @@ jobs:
   diagnostics:
     name: Run diagnostics
     runs-on: ubuntu-latest
+    if: >
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.fork == true
     steps:
       # Note that a duplicate of this step must be added at the top of
       # each job.
