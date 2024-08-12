@@ -48,6 +48,8 @@ repos:
     rev: v3.5.3
     hooks:
       - id: prettier
+        additional_dependencies:
+          - "@prettier/plugin-xml@3.4.1"
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.37.0
     hooks:
