@@ -280,8 +280,8 @@ for req_file in "requirements-dev.txt" "requirements-test.txt" "requirements.txt
   fi
 done
 
-# Install git pre-commit hooks now or later.
-pre-commit install ${INSTALL_HOOKS:+"--install-hooks"}
+# Force installation of the git hook and install pre-commit hooks now or later.
+pre-commit install --overwrite ${INSTALL_HOOKS:+"--install-hooks"}
 
 # Setup git remotes from lineage configuration
 # This could fail if the remotes are already setup, but that is ok.
