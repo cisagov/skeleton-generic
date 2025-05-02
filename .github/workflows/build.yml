@@ -149,25 +149,25 @@ jobs:
         with:
           terraform_version: ${{ steps.setup-env.outputs.terraform-version }}
       - name: Install go-critic
-        env:
-          PACKAGE_URL: github.com/go-critic/go-critic/cmd/gocritic
-          PACKAGE_VERSION: ${{ steps.setup-env.outputs.go-critic-version }}
-        run: go install ${PACKAGE_URL}@${PACKAGE_VERSION}
+        uses: cisagov/setup-go-package@v1
+        with:
+          source: github.com/go-critic/go-critic/cmd/gocritic
+          version: ${{ steps.setup-env.outputs.go-critic-version }}
       - name: Install goimports
-        env:
-          PACKAGE_URL: golang.org/x/tools/cmd/goimports
-          PACKAGE_VERSION: ${{ steps.setup-env.outputs.goimports-version }}
-        run: go install ${PACKAGE_URL}@${PACKAGE_VERSION}
+        uses: cisagov/setup-go-package@v1
+        with:
+          source: golang.org/x/tools/cmd/goimports
+          version: ${{ steps.setup-env.outputs.goimports-version }}
       - name: Install gosec
-        env:
-          PACKAGE_URL: github.com/securego/gosec/v2/cmd/gosec
-          PACKAGE_VERSION: ${{ steps.setup-env.outputs.gosec-version }}
-        run: go install ${PACKAGE_URL}@${PACKAGE_VERSION}
+        uses: cisagov/setup-go-package@v1
+        with:
+          source: github.com/securego/gosec/v2/cmd/gosec
+          version: ${{ steps.setup-env.outputs.gosec-version }}
       - name: Install staticcheck
-        env:
-          PACKAGE_URL: honnef.co/go/tools/cmd/staticcheck
-          PACKAGE_VERSION: ${{ steps.setup-env.outputs.staticcheck-version }}
-        run: go install ${PACKAGE_URL}@${PACKAGE_VERSION}
+        uses: cisagov/setup-go-package@v1
+        with:
+          source: honnef.co/go/tools/cmd/staticcheck
+          version: ${{ steps.setup-env.outputs.staticcheck-version }}
       # TODO: https://github.com/cisagov/skeleton-generic/issues/165
       # We are temporarily using @mcdonnnj's forked branch of terraform-docs
       # until his PR: https://github.com/terraform-docs/terraform-docs/pull/745
