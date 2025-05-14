@@ -120,16 +120,25 @@ jobs:
           echo "dir=$(go env GOCACHE)" >> $GITHUB_OUTPUT
       - uses: actions/cache@v4
         env:
-          BASE_CACHE_KEY: ${{ github.job }}-${{ runner.os }}-\
-            py${{ steps.setup-python.outputs.python-version }}-\
-            go${{ steps.setup-go.outputs.go-version }}-\
-            packer${{ steps.setup-env.outputs.packer-version }}-\
-            tf${{ steps.setup-env.outputs.terraform-version }}-
+          BASE_CACHE_KEY: >-
+            ${{ format(
+              '{0}-{1}-{2}-{3}-{4}-{5}-',
+              github.job,
+              runner.os,
+              format('py{0}', steps.setup-python.outputs.python-version),
+              format('go{0}', steps.setup-go.outputs.go-version),
+              format('packer{0}', steps.setup-env.outputs.packer-version),
+              format('tf{0}', steps.setup-env.outputs.terraform-version)
+            ) }}
         with:
-          key: ${{ env.BASE_CACHE_KEY }}\
-            ${{ hashFiles('**/requirements-test.txt') }}-\
-            ${{ hashFiles('**/requirements.txt') }}-\
-            ${{ hashFiles('**/.pre-commit-config.yaml') }}
+          key: >-
+            ${{ format(
+              '{0}{1}-{2}-{3}',
+              env.BASE_CACHE_KEY,
+              hashFiles('**/requirements-test.txt'),
+              hashFiles('**/requirements.txt'),
+              hashFiles('**/.pre-commit-config.yaml')
+            ) }}
           # Note that the .terraform directory IS NOT included in the
           # cache because if we were caching, then we would need to use
           # the `-upgrade=true` option. This option blindly pulls down the
