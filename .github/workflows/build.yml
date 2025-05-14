@@ -127,7 +127,7 @@ jobs:
               runner.os,
               format('py{0}', steps.setup-python.outputs.python-version),
               format('go{0}', steps.setup-go.outputs.go-version),
-              format('packer{0}', steps.setup-env.outputs.packer-version),
+              format('pkr{0}', steps.setup-env.outputs.packer-version),
               format('tf{0}', steps.setup-env.outputs.terraform-version)
             ) }}
         with:
