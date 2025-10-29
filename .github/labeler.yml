@@ -47,7 +47,7 @@ python:
 shell script:
   - changed-files:
       - any-glob-to-any-file:
-          # Add any shell scripts that do not end in the ".sh" extension.
+          # If this project has any shell scripts that do not end in the ".sh" extension, add them below
           - "**/*.sh"
           - bump-version
           - setup-env
