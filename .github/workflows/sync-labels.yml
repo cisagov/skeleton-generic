@@ -56,7 +56,7 @@ jobs:
       contents: read
       # crazy-max/ghaction-github-labeler needs this to manage repository labels
       issues: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - name: Apply standard cisagov job preamble
         uses: cisagov/action-job-preamble@v1

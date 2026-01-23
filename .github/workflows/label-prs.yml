@@ -60,7 +60,7 @@ jobs:
       # Permissions required by actions/labeler
       contents: read
       pull-requests: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - name: Apply standard cisagov job preamble
         uses: cisagov/action-job-preamble@v1
