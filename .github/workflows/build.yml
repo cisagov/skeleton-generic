@@ -180,7 +180,7 @@ jobs:
       # This temporary fix will allow for ATX header support when terraform-docs is run
       # during linting and output delimiter rows with cell spacing that passes
       # Markdownlint's MD060/table-column-style rule.
-      - name: Clone ATX headers branch from terraform-docs fork
+      - name: Clone cisagov branch from terraform-docs fork
         run: |
           git clone \
            --branch $TERRAFORM_DOCS_REPO_BRANCH_NAME \
