@@ -202,4 +202,4 @@ jobs:
         run: pre-commit run --all-files
       - name: Setup tmate debug session
         uses: mxschmitt/action-tmate@v3
-        if: env.RUN_TMATE
+        if: ${{ ! cancelled() && env.RUN_TMATE }}
