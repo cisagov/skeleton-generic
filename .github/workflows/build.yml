@@ -173,13 +173,15 @@ jobs:
           PACKAGE_VERSION: ${{ steps.setup-env.outputs.staticcheck-version }}
         run: go install ${PACKAGE_URL}@${PACKAGE_VERSION}
       # TODO: https://github.com/cisagov/skeleton-generic/issues/165
-      # We are temporarily using a branch of @mcdonnnj's fork of terraform-docs that
-      # groups changes from his PRs until they are approved and merged:
+      # We are temporarily using the cisagov branch of @mcdonnnj's fork of
+      # terraform-docs that groups changes from his PRs until they are approved and
+      # merged. These are the PRs that are included in the cisagov branch:
       # https://github.com/terraform-docs/terraform-docs/pull/745
       # https://github.com/terraform-docs/terraform-docs/pull/901
-      # This temporary fix will allow for ATX header support when terraform-docs is run
-      # during linting and output delimiter rows with cell spacing that passes
-      # Markdownlint's MD060/table-column-style rule.
+      #
+      # This temporary fix (via the cisagov branch) allows terraform-docs to support
+      # closed ATX headers and output Markdown table delimiter rows with cell spacing
+      # that passes Markdownlint's MD060/table-column-style rule.
       - name: Clone cisagov branch from terraform-docs fork
         run: |
           git clone \
