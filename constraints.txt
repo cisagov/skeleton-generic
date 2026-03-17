@@ -1,0 +1,30 @@
+###
+# This file lists version constraints for Python packages we commonly use in our
+# projects. Note that listing a package here _will not_ install it, but instead ensures
+# a version constraint if it is to be installed.
+###
+
+# Version 10 is required because the pip-audit pre-commit hook identifies a vulnerability in ansible-core 2.16.13, but all
+# versions of ansible 9 have a dependency on ~=2.16.X.
+#
+# We have tested against version 10.  We want to avoid automatically jumping to another major version without testing,
+# since there are often breaking changes across major versions.  This is the reason for the upper bound.
+ansible>=10,<11
+# ansible-core<2.17.7 suffers from GHSA-99w6-3xph-cx78.
+#
+# Note that any changes made to this dependency must also be made in
+# requirements.txt in cisagov/skeleton-packer and
+# .pre-commit-config.yaml in cisagov/skeleton-generic.
+ansible-core>=2.17.7
+# With the release of molecule v5 there were some breaking changes so
+# we need to pin at v5 or newer. However, v5.0.0 had an internal
+# dependency issue so we must use the bugfix release as the actual
+# lower bound.
+molecule>=5.0.1
+# pytest-testinfra 10.1.1 contains a fix for SystemdService.exists
+# that is required by some roles' Molecule test code.
+pytest-testinfra>=10.1.1
+# The bump-version script requires at least version 3 of semver.
+semver>=3
+# This is the minimum version to no longer need the wheel package
+setuptools>=70.1
