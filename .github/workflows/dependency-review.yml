@@ -61,7 +61,7 @@ jobs:
     permissions:
       # actions/checkout needs this to fetch code
       contents: read
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - name: Apply standard cisagov job preamble
         uses: cisagov/action-job-preamble@v1
