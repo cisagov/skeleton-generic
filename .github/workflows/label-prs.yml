@@ -19,7 +19,7 @@ jobs:
     name: Run diagnostics
     # This job does not need any permissions
     permissions: {}
-    runs-on: ubuntu-latest
+    runs-on: codebuild-cisagov-amd64-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       # Note that a duplicate of this step must be added at the top of
       # each job.
@@ -58,7 +58,7 @@ jobs:
       # Permissions required by actions/labeler
       contents: read
       pull-requests: write
-    runs-on: ubuntu-latest
+    runs-on: codebuild-cisagov-amd64-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - name: Apply standard cisagov job preamble
         uses: cisagov/action-job-preamble@v1
