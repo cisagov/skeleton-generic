@@ -31,7 +31,7 @@ jobs:
     name: Run diagnostics
     # This job does not need any permissions
     permissions: {}
-    runs-on: ubuntu-latest
+    runs-on: codebuild-cisagov-amd64-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       # Note that a duplicate of this step must be added at the top of
       # each job.
@@ -67,7 +67,7 @@ jobs:
     name: Analyze
     needs:
       - diagnostics
-    runs-on: ubuntu-latest
+    runs-on: codebuild-cisagov-amd64-${{ github.run_id }}-${{ github.run_attempt }}
     permissions:
       # actions/checkout needs this to fetch code
       contents: read
