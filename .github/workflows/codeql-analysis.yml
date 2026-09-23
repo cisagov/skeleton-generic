@@ -24,7 +24,9 @@ on:
     branches-ignore:
       - dependabot/**
   schedule:
-    - cron: 0 2 * * 6
+    # Run at 2:05 AM on Saturdays
+    - cron: 05 02 * * 6
+      timezone: America/New_York
 
 jobs:
   diagnostics:
