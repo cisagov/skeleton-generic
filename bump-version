@@ -171,8 +171,11 @@ for version_file in "${VERSION_FILES[@]}"; do
 done
 
 git add "${VERSION_FILES[@]}"
-git commit --message "$commit_prefix version from $old_version to $new_version" \
-  "$(if [ $with_no_verify == "true" ]; then echo --no-verify; fi)"
+commit_args=(--message "$commit_prefix version from $old_version to $new_version")
+if [ "$with_no_verify" = true ]; then
+  commit_args+=(--no-verify)
+fi
+git commit "${commit_args[@]}"
 
 if [ "$with_push" = true ]; then
   git push
