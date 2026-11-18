@@ -24,7 +24,6 @@ defaults:
 env:
   PIP_CACHE_DIR: ~/.cache/pip
   PRE_COMMIT_CACHE_DIR: ~/.cache/pre-commit
-  RUN_TMATE: ${{ secrets.RUN_TMATE }}
 
 jobs:
   diagnostics:
@@ -184,6 +183,18 @@ jobs:
         run: pre-commit install-hooks
       - name: Run pre-commit on all files
         run: pre-commit run --all-files
-      - name: Setup tmate debug session
-        uses: mxschmitt/action-tmate@v3
-        if: env.RUN_TMATE
+      - name: Setup upterm session
+        if: failure()
+        uses: owenthereal/action-upterm@v2
+        with:
+          # The workflow will keep executing, and upterm will continue
+          # to wait at the end.
+          detached: true
+          # Allow forwarding ports and such.  Useful if you want to
+          # debug something from within your IDE.
+          full-access: true
+          # Restrict to the user who triggered the workflow, using the
+          # ssh key(s) registered with GitHub.  If the user does not
+          # have any ssh keys associated with their account (i.e., if
+          # the user is a bot) then no session is started.
+          limit-access-to-actor: true
